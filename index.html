@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – TurfBook</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .auth-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(135deg, #0D1B2A 0%, #1B2838 25%, #1B5E20 50%, #2E7D32 75%, #4CAF50 100%);
+    }
+
+    .auth-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='rgba(255,255,255,0.03)' fill-rule='evenodd'%3E%3Cpath d='M0 20L20 0h20v20L20 40H0z' /%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .auth-bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(76, 175, 80, 0.08);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .auth-bg-circle:nth-child(1) {
+      width: 400px;
+      height: 400px;
+      top: -100px;
+      right: -100px;
+      animation-delay: 0s;
+    }
+
+    .auth-bg-circle:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      bottom: -50px;
+      left: -50px;
+      animation-delay: 2s;
+    }
+
+    .auth-bg-circle:nth-child(3) {
+      width: 200px;
+      height: 200px;
+      top: 40%;
+      left: 30%;
+      animation-delay: 4s;
+    }
+
+    .auth-wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .auth-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 80px;
+      color: white;
+    }
+
+    .auth-right {
+      width: 520px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .auth-features {
+      margin-top: 40px;
+    }
+
+    .auth-feature {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .auth-feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .auth-feature-text h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .auth-feature-text p {
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 1024px) {
+      .auth-left {
+        display: none;
+      }
+
+      .auth-right {
+        width: 100%;
+        border-left: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="auth-bg">
+    <div class="auth-bg-circle"></div>
+    <div class="auth-bg-circle"></div>
+    <div class="auth-bg-circle"></div>
+  </div>
+  <div class="auth-wrapper">
+    <div class="auth-left anim-fade-in">
+      <div style="margin-bottom:20px;">
+        <span style="font-size:56px;display:block;margin-bottom:16px;">🏟️</span>
+        <div style="font-size:42px;font-weight:900;letter-spacing:-1.5px;">TurfBook</div>
+        <div style="font-size:18px;opacity:0.8;margin-top:8px;">Your perfect turf, one tap away.</div>
+      </div>
+      <div class="auth-features">
+        <div class="auth-feature anim-slide-left delay-1">
+          <div class="auth-feature-icon">🎯</div>
+          <div class="auth-feature-text">
+            <h4>Smart Booking</h4>
+            <p>AI-powered pricing & real-time slot availability</p>
+          </div>
+        </div>
+        <div class="auth-feature anim-slide-left delay-2">
+          <div class="auth-feature-icon">⚡</div>
+          <div class="auth-feature-text">
+            <h4>Instant Confirmation</h4>
+            <p>Book & pay via UPI in seconds</p>
+          </div>
+        </div>
+        <div class="auth-feature anim-slide-left delay-3">
+          <div class="auth-feature-icon">🗺️</div>
+          <div class="auth-feature-text">
+            <h4>Explore Nearby</h4>
+            <p>Interactive map with all turfs near you</p>
+          </div>
+        </div>
+        <div class="auth-feature anim-slide-left delay-4">
+          <div class="auth-feature-icon">💎</div>
+          <div class="auth-feature-text">
+            <h4>Membership Perks</h4>
+            <p>Unlock discounts with Silver, Gold & Platinum</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-content anim-fade-up">
+        <div class="auth-card">
+          <div style="text-align:center;margin-bottom:28px;">
+            <div class="auth-app-name" style="display:none;">TurfBook</div>
+            <div class="auth-title">Welcome Back 👋</div>
+            <div class="auth-subtitle" style="margin-bottom:0;">Sign in to continue booking turfs</div>
+          </div>
+          <div id="error-banner" class="error-banner hidden"></div>
+          <div class="input-group"><label class="input-label">Email Address</label><input type="email" id="login-email"
+              class="input" placeholder="your@email.com"></div>
+          <div class="input-group"><label class="input-label">Password</label><input type="password" id="login-password"
+              class="input" placeholder="Enter your password"></div>
+          <div style="text-align:right;margin-bottom:20px;"><a href="#" id="forgot-link"
+              style="color:var(--primary);font-size:13px;font-weight:600;">Forgot password?</a></div>
+          <button id="login-btn" class="btn btn-primary btn-full btn-lg">🔑 Sign In</button>
+          <div class="hdivider" style="margin:24px 0;"><span class="hdivider-text">or</span></div>
+          <a href="register.html" class="btn btn-outline btn-full btn-lg" style="font-weight:600;">Create new
+            account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Auto-redirect if already logged in (check admin vs user)
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        if (user.email === ADMIN_EMAIL) {
+          window.location.href = 'admin/dashboard.html';
+        } else {
+          window.location.href = 'home.html';
+        }
+      }
+    });
+
+    // Regular sign-in
+    document.getElementById('login-btn').addEventListener('click', async function () {
+      var email = document.getElementById('login-email').value.trim(), password = document.getElementById('login-password').value;
+      var banner = document.getElementById('error-banner'); banner.classList.add('hidden');
+      if (!email || !password) { banner.textContent = 'Please enter email and password'; banner.classList.remove('hidden'); return; }
+      var btn = document.getElementById('login-btn'); btn.classList.add('btn-loading'); btn.textContent = '';
+      var result = await doLogin(email, password);
+      if (!result.success) { banner.textContent = result.error; banner.classList.remove('hidden'); btn.classList.remove('btn-loading'); btn.textContent = '🔑 Sign In'; }
+    });
+
+
+
+    document.getElementById('login-password').addEventListener('keydown', function (e) { if (e.key === 'Enter') document.getElementById('login-btn').click(); });
+    document.getElementById('forgot-link').addEventListener('click', function (e) {
+      e.preventDefault(); var email = prompt('Enter your email to receive a password reset link:');
+      if (email) doForgotPassword(email);
+    });
+  </script>
+</body>
+
+</html>
